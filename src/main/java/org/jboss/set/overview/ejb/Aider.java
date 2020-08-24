@@ -31,6 +31,7 @@ import static org.jboss.set.assist.Constants.EAP64ZSTREAM;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,6 +59,7 @@ import org.jboss.set.aphrodite.domain.RateLimit;
 import org.jboss.set.aphrodite.domain.Repository;
 import org.jboss.set.aphrodite.domain.Stream;
 import org.jboss.set.aphrodite.domain.StreamComponent;
+import org.jboss.set.aphrodite.domain.VersionUpgrade;
 import org.jboss.set.aphrodite.repository.services.common.RepositoryType;
 import org.jboss.set.aphrodite.spi.AphroditeException;
 import org.jboss.set.aphrodite.spi.NotFoundException;
@@ -384,5 +386,27 @@ public class Aider {
             logger.log(Level.WARNING, e.getMessage(), e);
         }
         return null;
+    }
+
+    public static List<VersionUpgrade> getComponentUpgrades(String component, String tag1, String tag2) {
+        try {
+            Stream stream = aphrodite.getStream("jboss-eap-7.0.z");
+            StreamComponent streamComponent = stream.getComponent(component);
+            return aphrodite.getRepository(streamComponent.getRepositoryURL().toURL()).getComponentUpgrades(tag1,tag2);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    public static List<String> getTagsAndBranches(String component) {
+        try {
+            Stream stream = aphrodite.getStream("jboss-eap-7.0.z");
+            StreamComponent streamComponent = stream.getComponent(component);
+            return aphrodite.getRepository(streamComponent.getRepositoryURL().toURL()).getTagsAndBranches();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, e.getMessage(), e);
+        }
+        return Collections.EMPTY_LIST;
     }
 }

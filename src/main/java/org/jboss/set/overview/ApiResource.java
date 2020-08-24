@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.jboss.set.aphrodite.domain.VersionUpgrade;
 import org.jboss.set.assist.data.ProcessorData;
 import org.jboss.set.overview.ejb.Aider;
 
@@ -94,5 +95,19 @@ public class ApiResource {
         }
 
         return res;
+    }
+
+    @GET
+    @Path("/upgrades/{comp}/{tag1}/{tag2}")
+    @Produces("application/json")
+    public List<VersionUpgrade> getComponentUpgrades(@PathParam("comp") String comp, @PathParam("tag1") String tag1, @PathParam("tag2") String tag2) {
+        return aider.getComponentUpgrades(comp, tag1, tag2);
+    }
+
+    @GET
+    @Path("/tags/{comp}")
+    @Produces("application/json")
+    public List<String> getTags(@PathParam("comp") String comp) {
+        return aider.getTagsAndBranches(comp);
     }
 }
