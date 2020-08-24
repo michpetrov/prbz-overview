@@ -35,7 +35,7 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+//import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -70,7 +70,7 @@ public class StreamPayload {
         CustomResponse customResponse = new CustomResponse(response);
 
         TreeSet<String> payloadSetByStream = new TreeSet<String>();
-        payloadSetByStream.addAll(Aider.getBzPayloadStoresByStream().keySet());
+        //payloadSetByStream.addAll(Aider.getBzPayloadStoresByStream().keySet());
         payloadSetByStream.addAll(Aider.getJiraPayloadStoresByStream().keySet());
 
         if (payloadSetByStream.isEmpty()) {
@@ -116,8 +116,8 @@ public class StreamPayload {
 
         if (Aider.getJiraPayloadStoresByStream().containsKey(streamName)) {
             payloadEmpty = Aider.getJiraPayloadStoresByStream().get(streamName).keySet().isEmpty();
-        } else if (Aider.getBzPayloadStoresByStream().containsKey(streamName)) {
-            payloadEmpty = Aider.getBzPayloadStoresByStream().get(streamName).keySet().isEmpty();
+//        } else if (Aider.getBzPayloadStoresByStream().containsKey(streamName)) {
+//            payloadEmpty = Aider.getBzPayloadStoresByStream().get(streamName).keySet().isEmpty();
         }
 
         if (payloadEmpty) {
@@ -174,7 +174,7 @@ public class StreamPayload {
 
     private Map<String, List<String>> getStreamMap() {
         return new TreeMap<>(
-                Stream.concat(Aider.getBzPayloadStoresByStream().entrySet().stream(), Aider.getJiraPayloadStoresByStream().entrySet().stream())
+                /*Stream.concat(Aider.getBzPayloadStoresByStream().entrySet().stream(),*/ Aider.getJiraPayloadStoresByStream().entrySet().stream()//)
                         .collect(Collectors.toMap(e -> e.getKey(),
                                 e -> e.getValue().keySet().stream().collect(Collectors.toList())
                         )

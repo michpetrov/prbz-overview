@@ -23,17 +23,17 @@
 package org.jboss.set.overview;
 
 import static org.jboss.set.assist.Constants.EAP64ZPAYLOADPATTERN;
-import static org.jboss.set.assist.Constants.EAP70ZPAYLOADPATTERN;
-import static org.jboss.set.assist.Constants.EAP71ZPAYLOADPATTERN;
+//import static org.jboss.set.assist.Constants.EAP70ZPAYLOADPATTERN;
+//import static org.jboss.set.assist.Constants.EAP71ZPAYLOADPATTERN;
 import static org.jboss.set.assist.Constants.EAP72ZPAYLOADPATTERN;
 import static org.jboss.set.assist.Constants.EAP73ZPAYLOADPATTERN;
 import static org.jboss.set.assist.Constants.EAP64ZSTREAM;
-import static org.jboss.set.assist.Constants.EAP70ZSTREAM;
-import static org.jboss.set.assist.Constants.EAP71ZSTREAM;
+//import static org.jboss.set.assist.Constants.EAP70ZSTREAM;
+//import static org.jboss.set.assist.Constants.EAP71ZSTREAM;
 import static org.jboss.set.assist.Constants.EAP72ZSTREAM;
 import static org.jboss.set.assist.Constants.EAP73ZSTREAM;
-import static org.jboss.set.assist.Constants.EAP70ZPAYLOAD_ALIAS_PREFIX;
-import static org.jboss.set.assist.Constants.EAP71ZPAYLOAD_ALIAS_PREFIX;
+//import static org.jboss.set.assist.Constants.EAP70ZPAYLOAD_ALIAS_PREFIX;
+//import static org.jboss.set.assist.Constants.EAP71ZPAYLOAD_ALIAS_PREFIX;
 import static org.jboss.set.assist.Constants.EAP72ZPAYLOAD_ALIAS_PREFIX;
 import static org.jboss.set.assist.Constants.EAP73ZPAYLOAD_ALIAS_PREFIX;
 import static org.jboss.set.assist.Constants.EAP7PAYLOAD_ALIAS_SUFFIX;
@@ -151,8 +151,8 @@ public class Util {
     }
 
     public static void findAllJiraPayloads(Aphrodite aphrodite, boolean first) {
-        findJiraPayloads(aphrodite, first, EAP70ZSTREAM, EAP70ZPAYLOAD_ALIAS_PREFIX, EAP70ZPAYLOADPATTERN);
-        findJiraPayloads(aphrodite, first, EAP71ZSTREAM, EAP71ZPAYLOAD_ALIAS_PREFIX, EAP71ZPAYLOADPATTERN);
+//        findJiraPayloads(aphrodite, first, EAP70ZSTREAM, EAP70ZPAYLOAD_ALIAS_PREFIX, EAP70ZPAYLOADPATTERN);
+//        findJiraPayloads(aphrodite, first, EAP71ZSTREAM, EAP71ZPAYLOAD_ALIAS_PREFIX, EAP71ZPAYLOADPATTERN);
         findJiraPayloads(aphrodite, first, EAP72ZSTREAM, EAP72ZPAYLOAD_ALIAS_PREFIX, EAP72ZPAYLOADPATTERN);
         findJiraPayloads(aphrodite, first, EAP73ZSTREAM, EAP73ZPAYLOAD_ALIAS_PREFIX, EAP73ZPAYLOADPATTERN);
     }

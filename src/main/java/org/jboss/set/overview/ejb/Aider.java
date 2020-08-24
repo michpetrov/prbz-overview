@@ -23,10 +23,10 @@
 package org.jboss.set.overview.ejb;
 
 import static org.jboss.set.overview.Util.filterComponent;
-import static org.jboss.set.overview.Util.findAllBugzillaPayloads;
+//import static org.jboss.set.overview.Util.findAllBugzillaPayloads;
 import static org.jboss.set.overview.Util.findAllJiraPayloads;
 
-import static org.jboss.set.assist.Constants.EAP64ZSTREAM;
+//import static org.jboss.set.assist.Constants.EAP64ZSTREAM;
 
 import java.net.URI;
 import java.net.URL;
@@ -54,7 +54,7 @@ import javax.inject.Inject;
 
 import org.jboss.set.aphrodite.Aphrodite;
 import org.jboss.set.aphrodite.domain.Issue;
-import org.jboss.set.aphrodite.domain.IssueStatus;
+//import org.jboss.set.aphrodite.domain.IssueStatus;
 import org.jboss.set.aphrodite.domain.RateLimit;
 import org.jboss.set.aphrodite.domain.Repository;
 import org.jboss.set.aphrodite.domain.Stream;
@@ -112,7 +112,7 @@ public class Aider {
                     status.refreshStarted();
 
                     findAllJiraPayloads(Aider.aphrodite, true);
-                    findAllBugzillaPayloads(Aider.aphrodite, true);
+//                    findAllBugzillaPayloads(Aider.aphrodite, true);
 
                     allStreams = aphrodite.getAllStreams().stream().filter(e -> !e.getName().equals(Aider.WILDFLY_STREAM)).collect(Collectors.toList());
 
@@ -159,7 +159,7 @@ public class Aider {
     public void initAllPayloadData() {
         logger.info("payload data initialization is started.");
         generatePayloadDataForJira(Util.jiraPayloadStoresByStream, true);
-        generatePayloadDataForBz(EAP64ZSTREAM, Util.bzPayloadStore, true);
+//        generatePayloadDataForBz(EAP64ZSTREAM, Util.bzPayloadStore, true);
         logger.info("payload data initialization is finished.");
     }
 
@@ -281,40 +281,40 @@ public class Aider {
         payloadsDataByStreams.put(targetStream, payloadData);
     }
 
-    public void generatePayloadDataForBz(String targetStream, Map<String, Issue> payloads, boolean firstInit) {
-        payloads.keySet().forEach(payload -> {
-            List<ProcessorData> dataList = new ArrayList<>();
-            logger.info(payload + " data genearation is started...");
-            Optional<Stream> stream = getCurrentStream(targetStream);
-            if (stream.isPresent()) {
-                for (PayloadProcessor processor : payloadProcessors) {
-                    logger.info("executing processor: " + processor.getClass().getName());
-                    try {
-                        Issue trackerIssue = payloads.get(payload);
-                        if (firstInit || payloadData.get(payload) == null || !(trackerIssue.getStatus().equals(IssueStatus.CLOSED) || trackerIssue.getStatus().equals(IssueStatus.VERIFIED))) {
-                            // only add data in first initialization, or later schedule update if tracker is neither closed nor verified.
-                            dataList.addAll(processor.process(trackerIssue, stream.get()));
-                        } else{
-                            logger.log(Level.INFO, "Released payload " + payload + " is skipped.");
-                        }
-                    } catch (ProcessorException ex1) {
-                        logger.log(Level.WARNING, ex1.getMessage(), ex1);
-                    } catch (Exception ex2) {
-                        logger.log(Level.WARNING, ex2.getMessage(), ex2);
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            } else {
-                logger.log(Level.WARNING, "Empty stream name for payload " + payload);
-            }
-            if (!dataList.isEmpty()) {
-                synchronized (payloadDataLock) {
-                    payloadData.put(payload, dataList);
-                }
-            }
-            logger.info(payload + " data genearation is finished...");
-        });
-    }
+//    public void generatePayloadDataForBz(String targetStream, Map<String, Issue> payloads, boolean firstInit) {
+//        payloads.keySet().forEach(payload -> {
+//            List<ProcessorData> dataList = new ArrayList<>();
+//            logger.info(payload + " data genearation is started...");
+//            Optional<Stream> stream = getCurrentStream(targetStream);
+//            if (stream.isPresent()) {
+//                for (PayloadProcessor processor : payloadProcessors) {
+//                    logger.info("executing processor: " + processor.getClass().getName());
+//                    try {
+//                        Issue trackerIssue = payloads.get(payload);
+//                        if (firstInit || payloadData.get(payload) == null || !(trackerIssue.getStatus().equals(IssueStatus.CLOSED) || trackerIssue.getStatus().equals(IssueStatus.VERIFIED))) {
+//                            // only add data in first initialization, or later schedule update if tracker is neither closed nor verified.
+//                            dataList.addAll(processor.process(trackerIssue, stream.get()));
+//                        } else{
+//                            logger.log(Level.INFO, "Released payload " + payload + " is skipped.");
+//                        }
+//                    } catch (ProcessorException ex1) {
+//                        logger.log(Level.WARNING, ex1.getMessage(), ex1);
+//                    } catch (Exception ex2) {
+//                        logger.log(Level.WARNING, ex2.getMessage(), ex2);
+//                        Thread.currentThread().interrupt();
+//                    }
+//                }
+//            } else {
+//                logger.log(Level.WARNING, "Empty stream name for payload " + payload);
+//            }
+//            if (!dataList.isEmpty()) {
+//                synchronized (payloadDataLock) {
+//                    payloadData.put(payload, dataList);
+//                }
+//            }
+//            logger.info(payload + " data genearation is finished...");
+//        });
+//    }
 
     @Asynchronous
     public void scheduleRefresh() {
@@ -354,10 +354,10 @@ public class Aider {
         status.refreshStarted();
 
         logger.info("schedule payload data update is started ...");
-        findAllBugzillaPayloads(aphrodite, false);
+//        findAllBugzillaPayloads(aphrodite, false);
         findAllJiraPayloads(aphrodite, false);
         generatePayloadDataForJira(Util.jiraPayloadStoresByStream, false);
-        Util.bzPayloadStoresByStream.keySet().stream().forEach(e -> generatePayloadDataForBz(e, Util.bzPayloadStoresByStream.get(e), false));
+//        Util.bzPayloadStoresByStream.keySet().stream().forEach(e -> generatePayloadDataForBz(e, Util.bzPayloadStoresByStream.get(e), false));
         logger.info("schedule payload data update is finished ...");
 
         status.refreshCompleted();
@@ -371,9 +371,9 @@ public class Aider {
         return allStreams;
     }
 
-    public static LinkedHashMap<String, LinkedHashMap<String, Issue>> getBzPayloadStoresByStream() {
-        return Util.bzPayloadStoresByStream;
-    }
+//    public static LinkedHashMap<String, LinkedHashMap<String, Issue>> getBzPayloadStoresByStream() {
+//        return Util.bzPayloadStoresByStream;
+//    }
 
     public static LinkedHashMap<String, LinkedHashMap<String, List<Issue>>> getJiraPayloadStoresByStream() {
         return Util.jiraPayloadStoresByStream;
