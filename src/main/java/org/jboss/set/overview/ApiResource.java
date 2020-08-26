@@ -24,6 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,8 @@ public class ApiResource {
     @Produces("application/json")
     public Collection<RestIssue> generatePayload(@PathParam("streamName") String streamName, @PathParam("payloadName") String payloadName) {
         List<ProcessorData> payloadData = Aider.getPayloadData(payloadName);
+
+        if (payloadData == null) return Collections.EMPTY_LIST;
 
         return payloadData.parallelStream()
                 .map(d-> RestIssue.from(d))
