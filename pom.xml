@@ -161,6 +161,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.set</groupId>
+			<artifactId>jboss-aphrodite-gitlab</artifactId>
+			<version>${version.org.jboss.set.aphrodite}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.set</groupId>
 			<artifactId>jboss-aphrodite-jira</artifactId>
 			<version>${version.org.jboss.set.aphrodite}</version>
 		</dependency>
